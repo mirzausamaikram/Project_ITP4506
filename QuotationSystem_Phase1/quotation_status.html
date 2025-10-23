@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quotation Status</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <div class="card" style="max-width:700px">
+    <h2>Quotation Details</h2>
+    <table id="detTable"></table>
+
+    <!-- SALES ONLY -->
+    <div id="salesBox" style="display:none;margin-top:20px">
+      <div class="form-group">
+        <label>Quoted Price (HK$)</label>
+        <input type="number" id="price" min="0" step="0.01">
+      </div>
+      <div class="form-group">
+        <label>Estimated Delivery</label>
+        <input type="date" id="estDate">
+      </div>
+      <button class="btn" onclick="sendQuote()">Send Quote</button>
+    </div>
+
+    <!-- CUSTOMER ONLY -->
+    <div id="custBox" style="display:none;margin-top:20px">
+      <p><strong>Status:</strong> <span id="stat"></span></p>
+      <p><strong>Quoted Price:</strong> HK$ <span id="quotedP"></span></p>
+      <p><strong>Est. Delivery:</strong> <span id="quotedD"></span></p>
+    </div>
+
+    <p style="text-align:center;margin-top:25px">
+      <a id="backLink" href="">← Back</a>
+    </p>
+  </div>
+  <script type="module" src="js/quotation_status.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sales Dashboard</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="card" style="max-width:600px">
+    <h2>Sales Dashboard</h2>
+    <p>Welcome <strong id="userName"></strong></p>
+    <canvas id="quoteChart" width="400" height="200"></canvas>
+    <div style="display:flex;gap:15px;margin-top:25px">
+      <a class="btn" href="quotation_list.html">View Quotations</a>
+      <a class="btn" href="../login.html">Logout</a>
+    </div>
+  </div>
+  <script>
+    const user=JSON.parse(sessionStorage.getItem('user'));
+    if(!user)location.href='../login.html';
+    $('#userName').textContent=user.email;
+  </script>
+  <script type="module">
+  /* ---- quick chart ---- */
+  const list = JSON.parse(localStorage.getItem('quotations')||'[]');
+  const weekMap = {};
+  list.forEach(q=>{
+     const wk = new Date(q.date).toISOString().slice(0,10); // yyyy-mm-dd
+     weekMap[wk] = (weekMap[wk]||0)+1;
+  });
+  const labels = Object.keys(weekMap).sort();
+  const data   = labels.map(l=>weekMap[l]);
+
+  new Chart(document.getElementById('quoteChart'),{
+     type:'bar',
+     data:{
+        labels,
+        datasets:[{
+           label:'Quotation requests',
+           data,
+           backgroundColor:'#ff9f1c'
+        }]
+     },
+     options:{
+        scales:{ y:{ beginAtZero:true, ticks:{ stepSize:1 } } },
+        plugins:{ legend:{ display:false } }
+     }
+  });
+</script>
+</body>
+</html>

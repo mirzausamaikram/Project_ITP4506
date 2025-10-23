@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Sunshine Bear",
+    "price": 128,
+    "img": "https://cdn-icons-png.flaticon.com/512/1239/1239922.png",
+    "desc": "Soft plush bear with embroidered smile.",
+    "stock": 20
+  },
+  {
+    "id": 2,
+    "name": "Rainbow Turtle",
+    "price": 95,
+    "img": "https://cdn-icons-png.flaticon.com/512/1239/1239856.png",
+    "desc": "Colourful wooden pull-along turtle.",
+    "stock": 15
+  },
+  {
+    "id": 3,
+    "name": "Magic Blocks",
+    "price": 199,
+    "img": "https://cdn-icons-png.flaticon.com/512/1239/1239743.png",
+    "desc": "40-piece magnetic building set.",
+    "stock": 10
+  }
+]

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Smile & Sunshine</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome Back</h2>
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" required/>
+        <div class="error"></div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="pwd" required/>
+        <div class="error"></div>
+      </div>
+      <button class="btn" type="submit">Login</button>
+    </form>
+    <p style="text-align:center;margin-top:15px;font-size:.9rem">
+      New user? <a href="register.html">Register here</a>
+    </p>
+  </div>
+
+  <!-- plain scripts – no modules -->
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

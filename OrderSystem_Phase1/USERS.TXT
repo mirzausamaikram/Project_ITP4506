@@ -1,0 +1,2 @@
+customer@demo.com,123456,customer
+sales@demo.com,123456,sales

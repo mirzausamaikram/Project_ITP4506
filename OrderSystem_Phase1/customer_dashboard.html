@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Dashboard</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <div class="card" style="max-width:600px">
+    <h2>Customer Dashboard</h2>
+    <p>Welcome <strong id="userName"></strong></p>
+    <div style="display:flex;gap:15px;margin-top:25px">
+      <a class="btn" href="browse_toys.html">Browse Toys</a>
+      <a class="btn" href="wishlist.html">My Wish-list</a>
+      <a class="btn" href="track_order.html">Track Order</a>
+    </div>
+    <p style="text-align:center;margin-top:30px">
+      <a href="../login.html">← Logout</a>
+    </p>
+  </div>
+  <!-- === EXTRA VALUE === -->
+  <div class="insight-card">
+    <h3>My Insights</h3>
+    <p>Total orders: <strong id="orderCount">0</strong></p>
+    <p>Total spent: HK$ <strong id="spent">0.00</strong></p>
+  </div>
+ <script type="module">
+  import { $ } from '../js/common.js';   // global helper
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  if (!user) location.href = '../login.html';
+  $('#userName').textContent = user.email;
+
+  /* ---- 30-sec insight ---- */
+  const raw   = localStorage.getItem('orders');
+  const orders = raw ? JSON.parse(raw) : [];
+  const mine   = orders.filter(o => o.customer === user.email);
+  $('#orderCount').textContent = mine.length;
+  $('#spent').textContent = mine.reduce((s,o)=>s+o.total,0).toFixed(2);
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+/* ---------- root ---------- */
+:root{
+  --primary:#ff9f1c;      /* orange – toy brand feel */
+  --secondary:#cbf3f0;    /* teal tint */
+  --danger:#ff6b6b;
+  --success:#2ec4b6;
+  --dark:#1a535c;
+  --light:#f7fff7;
+  --radius:8px;
+  --transition:.3s ease;
+}
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+}
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--secondary) 0%, #fff 100%);
+}
+h2{
+  text-align:center;
+  color:var(--dark);
+}
+/* ---------- card ---------- */
+.card{
+  width:90%;
+  max-width:400px;
+  background:#fff;
+  padding:30px 25px;
+  border-radius:var(--radius);
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  animation:fadeIn .8s;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(-20px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+/* ---------- form ---------- */
+.form-group{
+  margin-bottom:18px;
+}
+label{
+  display:block;
+  font-size:.9rem;
+  margin-bottom:6px;
+  color:var(--dark);
+}
+input[type=text],
+input[type=email],
+input[type=password],
+select{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #bbb;
+  border-radius:var(--radius);
+  transition:var(--transition);
+}
+input:focus,select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(255,159,28,.25);
+  outline:none;
+}
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:var(--radius);
+  background:var(--primary);
+  color:#fff;
+  font-size:1rem;
+  cursor:pointer;
+  transition:var(--transition);
+}
+.btn:hover{
+  background:#e0890c;
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+/* ---------- feedback ---------- */
+.error{
+  color:var(--danger);
+  font-size:.85rem;
+  margin-top:4px;
+  display:none;
+}
+.success{
+  color:var(--success);
+  font-size:.9rem;
+  text-align:center;
+  display:none;
+}

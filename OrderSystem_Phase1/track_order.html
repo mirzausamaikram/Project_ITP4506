@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track Order</title>
+  <link rel="stylesheet" href="../common/css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <div class="card" style="max-width:650px">
+    <h2>Order Status</h2>
+    <p><strong>Order ID:</strong> <span id="oid"></span></p>
+    <p><strong>Estimated Delivery:</strong> <span id="est"></span></p>
+
+    <div class="tracker">
+      <div class="tracker-step done">1</div>
+      <div class="tracker-step active">2</div>
+      <div class="tracker-step">3</div>
+      <div class="tracker-step">4</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.8rem;color:#666">
+      <span>Confirmed</span><span>Processing</span><span>Shipped</span><span>Delivered</span>
+    </div>
+
+    <p style="text-align:center;margin-top:30px">
+      <a class="btn" href="customer_dashboard.html">Back to Dashboard</a>
+    </p>
+  </div>
+  <script>
+    const o=JSON.parse(localStorage.getItem('lastOrder'));
+    if(!o)location.href='customer_dashboard.html';
+    $('#oid').textContent=o.id;
+    $('#est').textContent=o.estDelivery;
+  </script>
+</body>
+</html>

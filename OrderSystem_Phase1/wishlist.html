@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Wish-list</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <div class="card" style="max-width:700px">
+    <h2>My Wish-list</h2>
+
+    <table id="wishTable">
+      <thead>
+        <tr>
+          <th>Toy</th><th>Price</th><th>Qty</th><th>Sub-total</th><th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="total-bar">
+      Total: HK$ <span id="total">0.00</span>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button class="btn" onclick="checkout()">Checkout →</button>
+      <a class="btn" href="browse_toys.html" style="background:#999">← Continue Shopping</a>
+    </div>
+
+    <p style="text-align:center;margin-top:15px">
+      <a href="customer_dashboard.html">← Back to Dashboard</a>
+    </p>
+  </div>
+
+  <script type="module" src="js/wishlist.js"></script>
+</body>
+</html>

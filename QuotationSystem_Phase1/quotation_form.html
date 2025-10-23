@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Request Quotation</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <div class="card" style="max-width:650px">
+    <h2>Custom Toy Quotation</h2>
+    <form id="quoteForm" novalidate>
+      <div class="form-group">
+        <label>Choose Template (optional)</label>
+        <select id="template">
+          <option value="">-- Select --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Upload Sketch / Image</label>
+        <input type="file" id="sketch" accept="image/*">
+      </div>
+      <div class="form-group">
+        <label>Dimensions (cm)</label>
+        <input type="text" id="dims" placeholder="e.g. 20 x 15 x 10">
+      </div>
+      <div class="form-group">
+        <label>Preferred Pantone Colours</label>
+        <input type="text" id="colors" placeholder="e.g. 185 C, 299 C">
+      </div>
+      <div class="form-group">
+        <label>Materials</label>
+        <input type="text" id="materials" placeholder="e.g. cotton, plush, plastic">
+      </div>
+      <div class="form-group">
+        <label>Quantity</label>
+        <input type="number" id="qty" min="1" value="50">
+      </div>
+      <div class="form-group">
+        <label>Preferred Payment</label>
+        <select id="payment">
+          <option value="bank">Bank Transfer</option>
+          <option value="fps">FPS</option>
+          <option value="cheque">Cheque</option>
+        </select>
+      </div>
+      <button class="btn" type="submit">Submit Request</button>
+      <div class="success" style="display:none;margin-top:15px">✅ Request sent – redirecting…</div>
+    </form>
+    <p style="text-align:center;margin-top:15px">
+      <a href="../OrderSystem_Phase1/customer_dashboard.html">← Back</a>
+    </p>
+  </div>
+  <script type="module" src="js/quotation_form.js"></script>
+</body>
+</html>
