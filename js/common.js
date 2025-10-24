@@ -1,33 +1,24 @@
-/* small reusable helpers */
-const $ = sel => document.querySelector(sel);
-const $$ = sel => document.querySelectorAll(sel);
-
-/* read USERS.TXT (synchronous – ok for demo) */
-function loadUsers(){
-  return fetch('../USERS.TXT')
-         .then(r=>r.text())
-         .then(txt=>txt.split('\n')
-                       .filter(Boolean)
-                       .map(l=>{
-                          const [em,pw,role]=l.split(',');
-                          return {email:em,password:pw,role:role};
-                        }));
+export async function loadUsers() {
+  return JSON.parse(localStorage.getItem('users') || '[]');
 }
 
-/* simple email regex */
-function validEmail(em){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+export function validEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
 }
 
-/* show inline error & add shake */
-function showError(inputEl,msg){
-  const err=inputEl.nextElementSibling;
-  err.textContent=msg;
-  err.style.display='block';
-  inputEl.classList.add('shake');
-  setTimeout(()=>inputEl.classList.remove('shake'),300);
+export function showError(input, message) {
+  const errorDiv = input.nextElementSibling || input.parentElement.querySelector('.error');
+  if (errorDiv) {
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+  }
 }
-function hideError(inputEl){
-  const err=inputEl.nextElementSibling;
-  err.style.display='none';
+
+export function hideError(input) {
+  const errorDiv = input.nextElementSibling || input.parentElement.querySelector('.error');
+  if (errorDiv) {
+    errorDiv.textContent = '';
+    errorDiv.style.display = 'none';
+  }
 }

@@ -3,35 +3,26 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Track Order</title>
-  <link rel="stylesheet" href="../common/css/main.css"/>
+  <title>Track Orders</title>
   <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-  <div class="card" style="max-width:650px">
-    <h2>Order Status</h2>
-    <p><strong>Order ID:</strong> <span id="oid"></span></p>
-    <p><strong>Estimated Delivery:</strong> <span id="est"></span></p>
-
-    <div class="tracker">
-      <div class="tracker-step done">1</div>
-      <div class="tracker-step active">2</div>
-      <div class="tracker-step">3</div>
-      <div class="tracker-step">4</div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:.8rem;color:#666">
-      <span>Confirmed</span><span>Processing</span><span>Shipped</span><span>Delivered</span>
-    </div>
-
+  <div class="card fade-in" style="max-width:800px">
+    <h2>My Orders</h2>
+    <table id="ordersTable">
+      <thead>
+        <tr>
+          <th>Order ID</th><th>Total</th><th>Status</th><th>Est. Delivery</th><th>Notes</th><th>Tracker</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
     <p style="text-align:center;margin-top:30px">
       <a class="btn" href="customer_dashboard.html">Back to Dashboard</a>
     </p>
   </div>
-  <script>
-    const o=JSON.parse(localStorage.getItem('lastOrder'));
-    if(!o)location.href='customer_dashboard.html';
-    $('#oid').textContent=o.id;
-    $('#est').textContent=o.estDelivery;
-  </script>
+  <script type="module" src="js/track.js"></script> <!-- New script for tracking -->
 </body>
 </html>

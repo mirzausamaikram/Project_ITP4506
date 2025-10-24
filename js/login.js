@@ -1,40 +1,39 @@
-/* ========== login.js  (plain JS – no modules)  ========== */
+import { loadUsers, validEmail, showError, hideError } from './common.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  /* ---- grab elements ---- */
-  const form  = document.querySelector('#loginForm');
+  const form = document.querySelector('#loginForm');
   const email = document.querySelector('#email');
-  const pwd   = document.querySelector('#pwd');
+  const pwd = document.querySelector('#pwd');
 
-  /* ---- submit handler ---- */
   form.addEventListener('submit', async e => {
-    e.preventDefault();                       // stop page reload
-    hideError(email); hideError(pwd);         // clear old messages
+    e.preventDefault();
+    hideError(email);
+    hideError(pwd);
 
-    /* basic validation */
     if (!validEmail(email.value)) {
       showError(email, 'Invalid e-mail address');
       return;
     }
 
-    /* load user file */
     const users = await loadUsers();
-    const match = users.find(u => u.email === email.value &&
-                                  u.password === pwd.value);
+    const user = users.find(u => u.email === email.value);
 
-    if (!match) {
-      showError(pwd, 'Wrong e-mail or password');
+    if (!user) {
+      showError(email, 'No account found with this e-mail');
       return;
     }
 
-    /* ---- success ---- */
-    sessionStorage.setItem('user', JSON.stringify(match));
+    if (user.password !== pwd.value) {
+      showError(pwd, 'Incorrect password');
+      return;
+    }
 
-    /* ---- role-based redirect ---- */
-    if (match.role === 'sales')
+    sessionStorage.setItem('user', JSON.stringify(user));
+
+    if (user.role === 'sales') {
       location.href = './QuotationSystem_Phase1/sales_dashboard.html';
-    else
+    } else {
       location.href = './OrderSystem_Phase1/customer_dashboard.html';
+    }
   });
 });

@@ -9,6 +9,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+  <!-- Include navigation bar -->
+  <include src="navbar.html"></include>
+
   <div class="card" style="max-width:600px">
     <h2>Sales Dashboard</h2>
     <p>Welcome <strong id="userName"></strong></p>
@@ -21,7 +24,7 @@
   <script>
     const user=JSON.parse(sessionStorage.getItem('user'));
     if(!user)location.href='../login.html';
-    $('#userName').textContent=user.email;
+    document.getElementById('userName').textContent=user.email;
   </script>
   <script type="module">
   /* ---- quick chart ---- */
@@ -42,7 +45,7 @@
            label:'Quotation requests',
            data,
            backgroundColor:'#ff9f1c'
-        }]
+         }]
      },
      options:{
         scales:{ y:{ beginAtZero:true, ticks:{ stepSize:1 } } },

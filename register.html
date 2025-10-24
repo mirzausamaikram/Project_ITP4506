@@ -12,8 +12,18 @@
     <h2>Create Account</h2>
     <form id="regForm" novalidate>
       <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="name" required/>
+        <div class="error"></div>
+      </div>
+      <div class="form-group">
         <label>Email</label>
         <input type="email" id="email" required/>
+        <div class="error"></div>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" required/>
         <div class="error"></div>
       </div>
       <div class="form-group">
@@ -27,6 +37,17 @@
           <option value="customer">Customer</option>
           <option value="sales">Sales Personnel</option>
         </select>
+      </div>
+      <div class="form-group" id="staff-number-group" style="display:none;">
+        <label>Staff Number</label>
+        <input type="text" id="staffNumber" required/>
+        <div class="error"></div>
+      </div>
+      <div class="form-group" id="terms-group">
+        <label>
+          <input type="checkbox" id="terms"/> I agree to the terms and conditions
+        </label>
+        <div class="error"></div>
       </div>
       <button class="btn" type="submit">Register</button>
       <div class="success">✅ Registration successful – redirecting…</div>
