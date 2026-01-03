@@ -1,0 +1,6 @@
+# Ignore large/raw media captures
+*.mkv
+*.mp4
+*.mov
+*.avi
+*.wmv

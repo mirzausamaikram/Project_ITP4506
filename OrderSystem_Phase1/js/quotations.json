@@ -1,0 +1,16 @@
+[
+  {
+    "id": "q001",
+    "customer": "user@example.com",
+    "template": "Custom",
+    "dims": "20 x 15 x 10",
+    "colors": "185 C, 299 C",
+    "materials": "cotton, plush",
+    "qty": 50,
+    "payment": "bank",
+    "status": "Pending",
+    "price": null,
+    "estDelivery": null,
+    "date": "2024-05-21"
+  }
+]

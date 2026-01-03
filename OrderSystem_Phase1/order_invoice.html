@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Invoice</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- For PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="customer_dashboard.html" class="navbar-brand">Smile & Sunshine</a>
+      <div class="navbar-nav">
+        <a href="browse_toys.html" class="nav-item">Browse Toys</a>
+        <a href="wishlist.html" class="nav-item">My Wish-list</a>
+        <a href="track_order.html" class="nav-item">Track Order</a>
+        <a href="account.html" class="nav-item">Update Profile</a>
+        <a href="quotation_form.html" class="nav-item">Custom Toys</a>
+        <a href="#" onclick="logout(); return false;" class="nav-item">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="card fade-in" style="max-width:800px;">
+    <div style="text-align:right; margin-bottom:20px;">
+      <button class="btn" onclick="printInvoice()" style="background:#2ec4b6; padding:10px 20px;">
+        🖨️ Print Invoice
+      </button>
+      <button class="btn" onclick="downloadPDF()" style="background:#007bff; padding:10px 20px;">
+        📥 Download PDF
+      </button>
+    </div>
+
+    <div id="invoiceContent" style="background:white; padding:30px; border:1px solid #ddd; border-radius:5px;">
+      <!-- Invoice Header -->
+      <div style="text-align:center; margin-bottom:30px; border-bottom:2px solid #2ec4b6; padding-bottom:15px;">
+        <h1 style="margin:0; color:#2ec4b6;">SMILE & SUNSHINE</h1>
+        <p style="margin:5px 0; color:#666;">Custom Toy Shop</p>
+        <p style="margin:5px 0; font-size:0.9rem; color:#999;">Phone: +852 1234 5678 | Email: info@smileandsunshine.com</p>
+      </div>
+
+      <!-- Invoice Title -->
+      <div style="margin-bottom:20px;">
+        <h2 style="margin:10px 0; color:#333;">INVOICE</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div>
+            <p style="margin:5px 0;"><strong>Order ID:</strong> <span id="orderId"></span></p>
+            <p style="margin:5px 0;"><strong>Order Date:</strong> <span id="orderDate"></span></p>
+            <p style="margin:5px 0;"><strong>Status:</strong> <span id="orderStatus" style="background:#28a745; color:white; padding:3px 8px; border-radius:3px;"></span></p>
+          </div>
+          <div style="text-align:right;">
+            <p style="margin:5px 0;"><strong>Est. Delivery:</strong> <span id="estDelivery"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Info -->
+      <div style="margin-bottom:20px; padding:15px; background:#f9f9f9; border-radius:5px;">
+        <h3 style="margin:0 0 10px 0; font-size:1rem;">Bill To:</h3>
+        <p style="margin:5px 0;"><strong id="customerName"></strong></p>
+        <p style="margin:5px 0;" id="customerEmail"></p>
+        <p style="margin:5px 0;"><strong>Delivery Address:</strong></p>
+        <p style="margin:5px 0;" id="deliveryAddress"></p>
+      </div>
+
+      <!-- Items Table -->
+      <div style="margin-bottom:20px;">
+        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+          <thead>
+            <tr style="background:#f0f0f0; border-bottom:2px solid #333;">
+              <th style="padding:10px; text-align:left;">Item</th>
+              <th style="padding:10px; text-align:center;">Qty</th>
+              <th style="padding:10px; text-align:right;">Unit Price</th>
+              <th style="padding:10px; text-align:right;">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="itemsTable">
+          </tbody>
+          <tfoot>
+            <tr style="border-top:2px solid #333;">
+              <td colspan="3" style="padding:10px; text-align:right; font-weight:bold;">Subtotal:</td>
+              <td style="padding:10px; text-align:right; font-weight:bold;" id="subtotal">HK$ 0.00</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="padding:10px; text-align:right; font-weight:bold;">Shipping:</td>
+              <td style="padding:10px; text-align:right; font-weight:bold;">HK$ 0.00</td>
+            </tr>
+            <tr style="background:#2ec4b6; color:white; font-size:1.1rem;">
+              <td colspan="3" style="padding:12px; text-align:right; font-weight:bold;">TOTAL:</td>
+              <td style="padding:12px; text-align:right; font-weight:bold;" id="totalAmount">HK$ 0.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Payment Info -->
+      <div style="margin-bottom:20px; padding:15px; background:#f9f9f9; border-radius:5px;">
+        <h3 style="margin:0 0 10px 0; font-size:1rem;">Payment Method:</h3>
+        <p style="margin:5px 0;" id="paymentMethod"></p>
+      </div>
+
+      <!-- Footer -->
+      <div style="text-align:center; margin-top:30px; padding-top:20px; border-top:1px solid #ddd; color:#666; font-size:0.9rem;">
+        <p style="margin:5px 0;">Thank you for your purchase!</p>
+        <p style="margin:5px 0;">If you have any questions, please contact us at info@smileandsunshine.com</p>
+        <p style="margin:10px 0 0 0; color:#999; font-size:0.8rem;">Invoice generated on: <span id="generatedDate"></span></p>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:25px;">
+      <a class="btn" href="track_order.html" style="background:#999;">← Back to Track Orders</a>
+    </p>
+  </div>
+
+  <script src="../js/common.js"></script>
+  <script src="../../js/animations.js"></script>
+  <script>
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    if (!user) location.href = '../login.html';
+
+    // Get orderId from URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('id');
+
+    if (!orderId) {
+      document.body.innerHTML = '<div class="card" style="text-align:center;"><p>No order found. <a href="track_order.html">Back to orders</a></p></div>';
+    } else {
+      // Load order data
+      const orders = window.loadOrders ? 
+        JSON.parse(localStorage.getItem('orders') || '[]') : 
+        JSON.parse(localStorage.getItem('orders') || '[]');
+      
+      const order = orders.find(o => o.id === orderId);
+
+      if (!order) {
+        document.body.innerHTML = '<div class="card" style="text-align:center;"><p>Order not found. <a href="track_order.html">Back to orders</a></p></div>';
+      } else {
+        // Populate invoice
+        document.getElementById('orderId').textContent = order.id;
+        document.getElementById('orderDate').textContent = new Date().toLocaleDateString();
+        document.getElementById('orderStatus').textContent = order.status || 'Confirmed';
+        document.getElementById('estDelivery').textContent = order.estDelivery || 'Pending';
+        
+        document.getElementById('customerName').textContent = user.name || user.email;
+        document.getElementById('customerEmail').textContent = user.email;
+        document.getElementById('deliveryAddress').textContent = order.address || 'Not provided';
+        
+        document.getElementById('paymentMethod').textContent = 
+          order.payment === 'credit' ? 'Credit Card' : 
+          order.payment === 'fps' ? 'FPS Transfer' : 
+          'Cash on Delivery';
+
+        // Populate items
+        const tbody = document.getElementById('itemsTable');
+        let subtotal = 0;
+        order.items.forEach(item => {
+          const amount = item.price * item.qty;
+          subtotal += amount;
+          const row = `
+            <tr style="border-bottom:1px solid #ddd;">
+              <td style="padding:10px;">${item.name}</td>
+              <td style="padding:10px; text-align:center;">${item.qty}</td>
+              <td style="padding:10px; text-align:right;">HK$ ${item.price.toFixed(2)}</td>
+              <td style="padding:10px; text-align:right;">HK$ ${amount.toFixed(2)}</td>
+            </tr>
+          `;
+          tbody.innerHTML += row;
+        });
+
+        document.getElementById('subtotal').textContent = `HK$ ${subtotal.toFixed(2)}`;
+        document.getElementById('totalAmount').textContent = `HK$ ${order.total.toFixed(2)}`;
+        document.getElementById('generatedDate').textContent = new Date().toLocaleString();
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('user');
+      location.href = '../login.html';
+    }
+
+    function printInvoice() {
+      window.print();
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('invoiceContent');
+      const opt = {
+        margin: 10,
+        filename: `invoice-${document.getElementById('orderId').textContent}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+</body>
+</html>

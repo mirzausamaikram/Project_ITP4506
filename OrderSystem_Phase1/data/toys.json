@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Tesla Cybertruck Toy",
+    "price": 20.00,
+    "desc": "Miniature model of the Tesla Cybertruck",
+  "img": "images/1.jpg",
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "name": "Wooden Airplane Toy",
+    "price": 15.00,
+    "desc": "Handcrafted wooden biplane",
+  "img": "images/2.jpg",
+    "stock": 30
+  },
+  {
+    "id": 3,
+    "name": "EVE Robot Toy",
+    "price": 25.00,
+    "desc": "Transforming EVE from WALL-E",
+  "img": "images/3.jpg",
+    "stock": 40
+  },
+  {
+    "id": 4,
+    "name": "Flying Orb Drone",
+    "price": 30.00,
+    "desc": "Hand-controlled flying ball with lights",
+  "img": "images/4.jpg",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "name": "Gray Cat Plush Toy",
+    "price": 18.00,
+    "desc": "Soft fluffy gray cat stuffed animal",
+  "img": "images/5.jpg",
+    "stock": 60
+  }
+]

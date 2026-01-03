@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quotation Status – Smile and Sunshine Toys</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+      body {
+          background: linear-gradient(135deg, #fff 0%, #f0f8f8 100%);
+          font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+          min-height: 100vh;
+          padding-top: 65px;
+      }
+      .snowflake {
+          position: fixed;
+          top: -10px;
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 1.5em;
+          animation: snowfall linear infinite;
+          pointer-events: none;
+          z-index: 0;
+      }
+      @keyframes snowfall {
+          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+      }
+      .navbar {
+          background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+          padding: 12px 0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          z-index: 1000;
+      }
+      .navbar .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      .navbar-brand {
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: #d32f2f;
+          text-decoration: none;
+          transition: all 0.3s ease;
+      }
+      .navbar-brand:hover {
+          text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+      }
+      .navbar-nav {
+          display: flex;
+          gap: 25px;
+          list-style: none;
+      }
+      .nav-item {
+          color: #d32f2f;
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          padding: 8px 12px;
+          border-radius: 4px;
+          position: relative;
+      }
+      .nav-item:hover {
+          color: #ff6b6b;
+          background: rgba(211, 47, 47, 0.1);
+          transform: translateY(-2px);
+      }
+      .card {
+          position: relative;
+          z-index: 1;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+          max-width: 800px !important;
+          margin: 30px auto !important;
+          padding: 40px !important;
+      }
+      .card h2 {
+          color: #d32f2f;
+          margin-bottom: 25px;
+          font-size: 2rem;
+          text-align: center;
+          font-weight: 700;
+      }
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+          border-radius: 8px;
+          overflow: hidden;
+      }
+      thead {
+          background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+          color: white;
+      }
+      thead th {
+          padding: 14px;
+          text-align: left;
+          font-weight: 700;
+          font-size: 0.95rem;
+      }
+      tbody td {
+          padding: 12px 14px;
+          border-bottom: 1px solid #e8e8e8;
+          font-size: 0.9rem;
+          color: #333;
+      }
+      tbody tr:last-child td {
+          border-bottom: none;
+      }
+      .form-group {
+          margin: 18px 0;
+          display: flex;
+          flex-direction: column;
+      }
+      .form-group label {
+          margin-bottom: 8px;
+          font-weight: 600;
+          color: #333;
+          font-size: 0.95rem;
+      }
+      .form-group input {
+          padding: 12px;
+          border: 2px solid #e8e8e8;
+          border-radius: 6px;
+          font-size: 0.95rem;
+          transition: all 0.3s ease;
+          font-family: inherit;
+      }
+      .form-group input:focus {
+          outline: none;
+          border-color: #d32f2f;
+          box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+      }
+      .btn {
+          padding: 12px 24px;
+          border: none;
+          border-radius: 8px;
+          background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+          color: white;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 0.95rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          text-decoration: none;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+      }
+      .btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 16px rgba(211, 47, 47, 0.3);
+      }
+      .status-info {
+          background: #f8f8f8;
+          padding: 18px;
+          border-radius: 8px;
+          margin-top: 20px;
+          border-left: 4px solid #d32f2f;
+      }
+      .status-info p {
+          margin: 12px 0;
+          color: #333;
+          font-size: 0.95rem;
+      }
+      .status-info strong {
+          color: #d32f2f;
+          font-weight: 700;
+      }
+      .back-btn {
+          background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+          color: white;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 8px rgba(211, 47, 47, 0.2);
+          text-align: center;
+          font-size: 0.95rem;
+          cursor: pointer;
+          border: none;
+      }
+      .back-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 16px rgba(211, 47, 47, 0.3);
+      }
+      .back-btn-arrow {
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+      }
+      .back-btn:hover .back-btn-arrow {
+          transform: translateX(-5px);
+      }
+      .action-buttons {
+          display: flex;
+          gap: 12px;
+          margin-top: 20px;
+          justify-content: center;
+      }
+      @media (max-width: 768px) {
+          body {
+              padding-top: 60px;
+          }
+          .card {
+              padding: 20px !important;
+              margin: 15px !important;
+          }
+          .form-group {
+              margin: 12px 0;
+          }
+          .action-buttons {
+              flex-direction: column;
+          }
+      }
+  </style>
+</head>
+<body>
+  <!-- Falling snowflakes -->
+  <script>
+      function createSnowflakes() {
+          for(let i = 0; i < 25; i++) {
+              const snowflake = document.createElement('div');
+              snowflake.className = 'snowflake';
+              snowflake.textContent = '❄';
+              snowflake.style.left = Math.random() * window.innerWidth + 'px';
+              snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+              snowflake.style.animationDelay = Math.random() * 5 + 's';
+              document.body.appendChild(snowflake);
+          }
+      }
+      createSnowflakes();
+  </script>
+
+  <nav class="navbar">
+      <div class="container">
+          <a href="sales_dashboard.html" class="navbar-brand">🎄 Smile & Sunshine Toys - Sales</a>
+          <div class="navbar-nav">
+              <a href="quotation_list.html" class="nav-item">Quotation List</a>
+              <a href="quotation_status.html" class="nav-item">Quotation Status</a>
+              <a href="sales_dashboard.html" class="nav-item">Sales Dashboard</a>
+              <a href="order.html" class="nav-item">Order Management</a>
+              <a href="#" onclick="logout(); return false;" class="nav-item">Logout</a>
+          </div>
+      </div>
+  </nav>
+
+  <div class="card">
+    <h2>📊 Quotation Details</h2>
+    <table id="detTable"></table>
+
+    <!-- SALES ONLY -->
+    <div id="salesBox" style="display:none;">
+      <div class="form-group">
+        <label>💰 Quoted Price (HK$)</label>
+        <input type="number" id="price" min="0" step="0.01" placeholder="Enter quoted price">
+      </div>
+      <div class="form-group">
+        <label>📅 Estimated Delivery</label>
+        <input type="date" id="estDate">
+      </div>
+      <button class="btn" onclick="sendQuote()">✓ Send Quote to Customer</button>
+    </div>
+
+    <!-- CUSTOMER ONLY -->
+    <div id="custBox" style="display:none;">
+      <div class="status-info">
+        <p><strong>📊 Status:</strong> <span id="stat"></span></p>
+        <p><strong>💰 Quoted Price:</strong> HK$ <span id="quotedP"></span></p>
+        <p><strong>📅 Est. Delivery:</strong> <span id="quotedD"></span></p>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a class="back-btn" id="backLink" href=""><span class="back-btn-arrow">←</span> Back</a>
+    </div>
+  </div>
+
+  <script src="../js/shared_data.js"></script>
+  <script src="js/quotation_status.js"></script>
+  <script>
+      function redirectDashboard() {
+          const user = JSON.parse(sessionStorage.getItem('user'));
+          if (!user) {
+              location.href = '../../login.html';
+              return;
+          }
+          if (user.role === 'sales') {
+              location.href = 'sales_dashboard.html';
+          } else {
+              location.href = '../OrderSystem_Phase1/customer_dashboard.html';
+          }
+      }
+
+      function logout() {
+          sessionStorage.removeItem('user');
+          location.href = '../../login.html';
+      }
+  </script>
+</body>
+</html>

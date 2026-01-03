@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Wish-list – Smile and Sunshine Toys</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #fff 0%, #f0f8f8 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.5em;
+      animation: snowfall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes snowfall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    .navbar {
+      background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+      padding: 12px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 10;
+      margin-bottom: 30px;
+    }
+    .navbar .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar-brand {
+      color: red;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+    .nav-item {
+      color: red;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+    .nav-item:hover {
+      color: #fff;
+      background: #d32f2f;
+      transform: translateY(-2px);
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 800px !important;
+      margin: 60px auto 0 !important;
+      padding: 30px !important;
+    }
+    .card h2 {
+      color: #d32f2f;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    table thead {
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      color: white;
+    }
+    table th {
+      padding: 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    table td {
+      padding: 14px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    table tbody tr:hover {
+      background: #f9f9f9;
+    }
+    table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .total-bar {
+      background: linear-gradient(135deg, #f5f5f5 0%, #fff 100%);
+      border: 2px solid #d32f2f;
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #d32f2f;
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #d32f2f;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    .btn:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(211, 47, 47, 0.3);
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-group .btn {
+      flex: 1;
+    }
+    a {
+      color: #d32f2f;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    a:hover {
+      color: #b71c1c;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-nav {
+        gap: 15px;
+        font-size: 0.85rem;
+      }
+      .btn-group {
+        flex-direction: column;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+      table th, table td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling snowflakes -->
+  <script>
+    function createSnowflakes() {
+      for(let i = 0; i < 25; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(snowflake);
+      }
+    }
+    createSnowflakes();
+  </script>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="javascript:redirectDashboard()" class="navbar-brand">🎄 Smile & Sunshine Toys</a>
+      <div class="navbar-nav">
+        <a href="browse_toys.html" class="nav-item">Browse Toys</a>
+        <a href="wishlist.html" class="nav-item">My Wish-list</a>
+        <a href="track_order.html" class="nav-item">Track Order</a>
+        <a href="account.html" class="nav-item">Update Profile</a>
+        <a href="quotation_form.html" class="nav-item">Custom Toys</a>
+        <a href="#" onclick="logout(); return false;" class="nav-item">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="card fade-in">
+    <h2>💝 My Wish-list</h2>
+    <table id="wishTable">
+      <thead>
+        <tr>
+          <th>Toy</th><th>Price</th><th>Qty</th><th>Sub-total</th><th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="total-bar">
+      Total: HK$ <span id="total">0.00</span>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn" id="checkoutBtn" onclick="checkout()">🛒 Checkout →</button>
+      <a class="btn" href="browse_toys.html" style="background:#999">← Continue Shopping</a>
+    </div>
+    <p style="text-align:center;margin-top:20px">
+      <a href="customer_dashboard.html" class="back-btn"><span class="back-btn-arrow">←</span> Back to Dashboard</a>
+    </p>
+  </div>
+
+  <script src="js/wishlist.js"></script>
+  <script src="../../js/animations.js"></script>
+
+  <script>
+    function redirectDashboard() {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      if (!user) {
+        location.href = '../login.html';
+        return;
+      }
+      if (user.role === 'sales') {
+        location.href = '../QuotationSystem_Phase1/sales_dashboard.html';
+      } else {
+        location.href = 'customer_dashboard.html';
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('user');
+      location.href = '../login.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+/* Simple slide-in from Lab 5 */
+@keyframes slideIn{from{transform:translateY(-30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.card{animation:slideIn .6s ease}

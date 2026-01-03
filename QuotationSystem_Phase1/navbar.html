@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <!-- navbar.html -->
+  <nav class="navbar">
+    <div class="container">
+        <a href="quotation_list.html" class="navbar-brand">Quotation System</a>
+          <div class="navbar-nav">
+              <a href="quotation_list.html" class="nav-item">Quotation List</a>
+              <a href="sales_dashboard.html" class="nav-item">Sales Dashboard</a>
+              <a href="order.html" class="nav-item">Order Management</a>
+              <a href="#" onclick="logout(); return false;" class="nav-item">Logout</a>
+          </div>
+    </div>
+  </nav>
+  <script>
+    function logout() {
+      sessionStorage.removeItem('user');
+      location.href = '../login.html';
+    }
+  </script>
+</body>
+</html>

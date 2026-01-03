@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Dashboard – Smile and Sunshine Toys</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <style>
+    .navbar {
+      background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+      padding: 12px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 10;
+      margin-bottom: 30px;
+    }
+    .navbar .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar-brand {
+      color: red;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+    .nav-item {
+      color: red;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+    .nav-item:hover {
+      color: #fff;
+      background: #d32f2f;
+      transform: translateY(-2px);
+    }
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.5em;
+      animation: snowfall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes snowfall {
+      0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 1; 
+      }
+      100% { 
+        transform: translateY(100vh) rotate(360deg); 
+        opacity: 0; 
+      }
+    }
+    body {
+      position: relative;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #fff 0%, #f0f8f8 100%);
+      min-height: 100vh;
+      padding-top: 65px;
+    }
+    .dashboard-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .welcome-banner {
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 20px rgba(211, 47, 47, 0.3);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6b6b, #ffd700, #ff6b6b);
+      animation: shimmer 3s infinite;
+    }
+    .welcome-banner h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.2rem;
+    }
+    .welcome-banner .company-name {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 10px;
+    }
+    .user-greeting {
+      font-size: 1.3rem;
+      margin: 15px 0;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* two equal columns */
+      gap: 20px;
+      margin-bottom: 30px;
+      align-items: stretch; /* ensure child cards stretch to equal height */
+    }
+    .shopping-hub {
+      grid-column: 1;
+    }
+    .insights-hub {
+      grid-column: 2;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+      min-height: 320px; /* keep cards visually balanced */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-color: #d32f2f;
+    }
+    .card h2 {
+      color: #d32f2f;
+      margin-top: 0;
+      font-size: 1.6rem;
+    }
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-group .btn {
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-group .btn.primary {
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      color: white;
+    }
+    .btn-group .btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+    }
+    .btn-group .btn.secondary {
+      background: #e8f4f8;
+      color: #1a535c;
+      border: 2px solid #cbf3f0;
+    }
+    .btn-group .btn.secondary:hover {
+      background: #d0f0f6;
+      border-color: #a0e7ef;
+    }
+    .insight-card {
+      background: linear-gradient(135deg, #fff 0%, #fff8f5 100%);
+      border: 1px solid rgba(211,47,47,0.12);
+      border-radius: 14px;
+      padding: 25px; /* match .card padding */
+      box-shadow: 0 6px 28px rgba(211,47,47,0.06);
+      min-height: 320px; /* match left card height */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* align content to top like left card */
+      align-items: center;
+    }
+    .insight-card h3 {
+      color: #b71c1c;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.15rem;
+    }
+    .insight-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .insight-item {
+      background: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+      border-left: 4px solid #ffd27a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .insight-item p {
+      margin: 0 0 8px 0;
+      color: #666;
+      font-size: 0.92rem;
+    }
+    .insight-value {
+      font-size: 1.6rem;
+      color: #b71c1c;
+      font-weight: 700;
+    }
+    .logout-section {
+      text-align: center;
+      margin-top: 60px;
+      padding: 30px 0;
+      border-top: 2px solid #e0e0e0;
+    }
+    .logout-section a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid #d32f2f;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+    }
+    .logout-section a:hover {
+      background: linear-gradient(135deg, #b71c1c 0%, #8b0000 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(211, 47, 47, 0.5);
+      border-color: #8b0000;
+    }
+    .logout-section a:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+    }
+    /* Consolidated logout-section styles kept above; duplicate override removed so the gradient button remains */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: rgba(211, 47, 47, 0.15);
+      font-size: 2em;
+      animation: snowfall linear infinite;
+      pointer-events: none;
+    }
+    @keyframes snowfall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .promo-banner {
+      background: linear-gradient(135deg, #ffd700 0%, #ff9f1c 100%);
+      color: #333;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(255, 159, 28, 0.3);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    .promo-banner strong {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .featured-section {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .featured-section h3 {
+      color: #d32f2f;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    .featured-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    .featured-item {
+      background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .featured-item:hover {
+      border-color: #d32f2f;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+    }
+    .featured-item-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+    .featured-item-name {
+      font-weight: 600;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .countdown-timer {
+      background: linear-gradient(135deg, #1a535c 0%, #4ecdc4 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(26, 83, 92, 0.3);
+    }
+    .countdown-timer h4 {
+      margin: 0 0 15px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .countdown-item {
+      background: rgba(255,255,255,0.15);
+      padding: 12px 8px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .countdown-item span {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .countdown-item span + * {
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
+    @media (max-width: 768px) {
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .countdown-timer {
+        padding: 15px;
+      }
+      .countdown-timer h4 {
+        margin-bottom: 12px;
+        font-size: 1rem;
+      }
+      div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling snowflakes -->
+  <script>
+    function createSnowflakes() {
+      for(let i = 0; i < 15; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(snowflake);
+      }
+    }
+    createSnowflakes();
+  </script>
+
+  <!-- Falling snowflakes -->
+  <script>
+    function createSnowflakes() {
+      for(let i = 0; i < 25; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(snowflake);
+      }
+    }
+    createSnowflakes();
+  </script>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="javascript:redirectDashboard()" class="navbar-brand">🎄 Smile & Sunshine Toys</a>
+      <div class="navbar-nav">
+        <a href="browse_toys.html" class="nav-item">Browse Toys</a>
+        <a href="wishlist.html" class="nav-item">My Wish-list</a>
+        <a href="track_order.html" class="nav-item">Track Order</a>
+        <a href="account.html" class="nav-item">Update Profile</a>
+        <a href="quotation_form.html" class="nav-item">Custom Toys</a>
+        <a href="#" onclick="logout(); return false;" class="nav-item">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div class="company-name">🎄 Smile and Sunshine Toys – Holiday Shopping Guide 🎄</div>
+      <h1>Welcome to Your Dashboard! 🎅</h1>
+      <p class="user-greeting">Hello <strong id="userName"></strong>, let's find the perfect Christmas gifts! 🎁</p>
+    </div>
+
+    <!-- Promotional Banner -->
+    <div class="promo-banner">
+      <strong>🎉 CHRISTMAS SPECIAL: UP TO 40% OFF! 🎉</strong>
+      Limited time offer on selected toys - Shop now while stocks last!
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-timer">
+      <h4>⏰ Christmas Sale Ends In:</h4>
+      <div class="countdown">
+        <div class="countdown-item"><span id="days">20</span><br>Days</div>
+        <div class="countdown-item"><span id="hours">12</span><br>Hours</div>
+        <div class="countdown-item"><span id="mins">45</span><br>Mins</div>
+        <div class="countdown-item"><span id="secs">30</span><br>Secs</div>
+      </div>
+    </div>
+
+    <!-- Featured Items -->
+    <div class="featured-section">
+      <h3>🌟 Trending This Christmas</h3>
+      <div class="featured-items">
+        <div class="featured-item" onclick="alert('Redirecting to product...')">
+          <div class="featured-item-emoji">🧩</div>
+          <div class="featured-item-name">Building Blocks</div>
+        </div>
+        <div class="featured-item" onclick="alert('Redirecting to product...')">
+          <div class="featured-item-emoji">🚀</div>
+          <div class="featured-item-name">Space Toys</div>
+        </div>
+        <div class="featured-item" onclick="alert('Redirecting to product...')">
+          <div class="featured-item-emoji">🎮</div>
+          <div class="featured-item-name">Gaming Sets</div>
+        </div>
+        <div class="featured-item" onclick="alert('Redirecting to product...')">
+          <div class="featured-item-emoji">🎨</div>
+          <div class="featured-item-name">Art Kits</div>
+        </div>
+        <div class="featured-item" onclick="alert('Redirecting to product...')">
+          <div class="featured-item-emoji">🚂</div>
+          <div class="featured-item-name">Train Sets</div>
+        </div>
+        <div class="featured-item" onclick="alert('Redirecting to product...')">
+          <div class="featured-item-emoji">🧸</div>
+          <div class="featured-item-name">Plushies</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; align-items: start;">
+      <!-- Main Dashboard Card (Left) -->
+      <div class="card shopping-hub">
+        <h2>🛍️ Your Shopping Hub</h2>
+        <p style="color: #666; margin-bottom: 20px;">
+          Explore our festive collection of premium toys and find the perfect gifts for your loved ones this Christmas season!
+        </p>
+        
+        <div class="btn-group">
+          <a class="btn primary" href="browse_toys.html">🎁 Browse Toys</a>
+          <a class="btn primary" href="wishlist.html">💝 My Wish-list</a>
+          <a class="btn secondary" href="track_order.html">📦 Track Order</a>
+          <a class="btn secondary" href="account.html">👤 Update Profile</a>
+          <a class="btn primary" href="quotation_form.html">🎨 Custom Toys</a>
+          <a class="btn primary" href="quotation_requests.html">📋 My Quotations</a>
+        </div>
+      </div>
+
+      <!-- My Orders Card (Left, below shopping hub or alongside) -->
+      <div class="card" id="myOrdersCard" style="margin-top:12px;">
+        <h2>📦 My Orders</h2>
+        <p style="color:#666; margin-bottom:10px;">Recent orders and replies from our team.</p>
+        <table id="myOrdersTable" style="width:100%; border-collapse:collapse;">
+          <thead>
+            <tr style="background:linear-gradient(135deg,#f1f1f1,#fff);">
+              <th style="padding:8px;text-align:left;">Order ID</th>
+              <th style="padding:8px;text-align:left;">Total</th>
+              <th style="padding:8px;text-align:left;">Status</th>
+              <th style="padding:8px;text-align:left;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="myOrdersBody">
+            <!-- filled by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Insights Card (Right) -->
+      <div class="card insight-card insights-hub" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+        <h3>📊 Your Shopping Insights</h3>
+        <div class="insight-row">
+          <div class="insight-item">
+            <p>Total Orders</p>
+            <div class="insight-value" id="orderCount">0</div>
+          </div>
+          <div class="insight-item">
+            <p>Total Spent</p>
+            <div class="insight-value">HK$ <span id="spent">0.00</span></div>
+          </div>
+          <div class="insight-item">
+            <p>Member Status</p>
+            <div class="insight-value" style="font-size: 1.2rem; color: #ff9f1c;">Silver</div>
+          </div>
+          <div class="insight-item">
+            <p>Loyalty Points</p>
+            <div class="insight-value">113</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Order Details Modal (read-only replies) -->
+    <div id="customerOrderModal" style="display:none; position:fixed; left:0; top:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:2000; align-items:center; justify-content:center;">
+      <div style="background:#fff; width:90%; max-width:560px; border-radius:10px; padding:18px; box-shadow:0 12px 32px rgba(0,0,0,0.25);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h3 style="color:#d32f2f;margin:0;">Order Details</h3>
+          <button onclick="closeCustomerModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">&times;</button>
+        </div>
+        <div id="custOrderContent" style="max-height:60vh; overflow:auto;">
+          <div style="display:flex;justify-content:space-between;padding:8px 0;"><strong>Order ID</strong><span id="custOrderId">-</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;"><strong>Total</strong><span id="custOrderTotal">-</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;"><strong>Status</strong><span id="custOrderStatus">-</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;"><strong>Delivery</strong><span id="custOrderDelivery">-</span></div>
+          <div style="padding:8px 0;"><strong>Items</strong><div id="custOrderItems" style="margin-top:6px;color:#444;"></div></div>
+          <div style="padding:8px 0;"><strong>Your Message</strong><div id="custOrderMessage" style="margin-top:6px;color:#444; white-space:pre-wrap;"></div></div>
+          <div style="padding:8px 0;"><strong>Replies</strong>
+            <div id="custRepliesList" style="margin-top:8px; display:flex; flex-direction:column; gap:8px; max-height:180px; overflow:auto;"></div>
+          </div>
+        </div>
+        <div style="text-align:right;margin-top:12px;">
+          <button onclick="closeCustomerModal()" class="btn" style="padding:8px 12px;">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logout Section -->
+    <div class="logout-section">
+      <a href="#" onclick="logout(); return false;">← Logout from Your Account</a>
+    </div>
+  </div>
+
+  <script>
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    if (!user) location.href = '../login.html';
+    document.getElementById('userName').textContent = user.email;
+
+    /* ---- 30-sec insight ---- */
+    const raw   = localStorage.getItem('orders');
+    const orders = raw ? JSON.parse(raw) : [];
+    const mine   = orders.filter(o => o.customer === user.email);
+    document.getElementById('orderCount').textContent = mine.length;
+    document.getElementById('spent').textContent = mine.reduce((s,o)=>s+o.total,0).toFixed(2);
+
+    /* ---- Countdown Timer ---- */
+    function updateCountdown() {
+      const christmasDate = new Date(new Date().getFullYear(), 11, 25).getTime();
+      const now = new Date().getTime();
+      const distance = christmasDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('mins').textContent = mins;
+        document.getElementById('secs').textContent = secs;
+      }
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Load customer's orders and render list for viewing replies
+    function loadUserOrdersForCustomer() {
+      const user = JSON.parse(sessionStorage.getItem('user') || 'null');
+      const tbody = document.getElementById('myOrdersBody');
+      if (!tbody) return;
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      if (!user) {
+        tbody.innerHTML = '<tr><td colspan="4" style="padding:8px;color:#999;text-align:center;">Please login to see your orders.</td></tr>';
+        return;
+      }
+      const mine = orders.filter(o => (o.customer || '') === (user.email || ''));
+      if (mine.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="padding:8px;color:#999;text-align:center;">No orders found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = mine.map(o => `
+        <tr>
+          <td style="padding:8px;">${o.id}</td>
+          <td style="padding:8px;">HK$ ${(o.total||0).toFixed(2)}</td>
+          <td style="padding:8px;"><span class="status-badge status-${(o.status||'pending').toLowerCase()}">${o.status||'Pending'}</span></td>
+          <td style="padding:8px;"><button class="btn" onclick="viewMyOrder('${o.id}')">View</button></td>
+        </tr>
+      `).join('');
+    }
+
+    // new helper: gather replies from multiple possible storage locations and the order object
+    function getCombinedReplies(order) {
+      const combined = Array.isArray(order.replies) ? order.replies.slice() : [];
+
+      const tryParse = (key) => {
+        try {
+          const raw = localStorage.getItem(key);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) return parsed;
+          // if parsed is object keyed by orderId
+          if (parsed && typeof parsed === 'object') {
+            const byId = parsed[order.id] || parsed[orderId] || [];
+            return Array.isArray(byId) ? byId : [];
+          }
+          return [];
+        } catch (e) { return []; }
+      };
+
+      // common alternate keys to check
+      const altKeys = [
+        'orderReplies_' + order.id,
+        'replies_' + order.id,
+        'replies',
+        'order_replies',
+        'orders_replies' // defensive
+      ];
+
+      altKeys.forEach(k => {
+        const more = tryParse(k);
+        more.forEach(r => {
+          // avoid duplicates: use time+author+message as simple signature
+          const sig = (r.time||'') + '|' + (r.author||'') + '|' + (r.message||'');
+          const exists = combined.some(c => ((c.time||'') + '|' + (c.author||'') + '|' + (c.message||'')) === sig);
+          if (!exists) combined.push(r);
+        });
+      });
+
+      // sort by time ascending if available
+      combined.sort((a,b) => {
+        const ta = a && a.time ? new Date(a.time).getTime() : 0;
+        const tb = b && b.time ? new Date(b.time).getTime() : 0;
+        return ta - tb;
+      });
+
+      return combined;
+    }
+
+    // update viewMyOrder to use combined replies
+    function viewMyOrder(orderId) {
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const order = orders.find(o => o.id === orderId);
+      if (!order) { alert('Order not found'); return; }
+      // populate modal fields
+      document.getElementById('custOrderId').textContent = order.id || 'N/A';
+      document.getElementById('custOrderTotal').textContent = 'HK$ ' + ((order.total||0).toFixed(2));
+      document.getElementById('custOrderStatus').textContent = order.status || 'Pending';
+      document.getElementById('custOrderDelivery').textContent = order.deliveryDate || 'TBD';
+      // items list
+      const itemsEl = document.getElementById('custOrderItems');
+      if (order.items && order.items.length) {
+        itemsEl.innerHTML = order.items.map(it => `<div style="padding:4px 0;">• ${it.name} — ${it.qty} × HK$ ${(+it.price).toFixed(2)}</div>`).join('');
+      } else {
+        itemsEl.innerHTML = '<div style="color:#666">No items</div>';
+      }
+      document.getElementById('custOrderMessage').textContent = order.message || '(none)';
+      // render replies using combined source
+      const repliesContainer = document.getElementById('custRepliesList');
+      repliesContainer.innerHTML = '';
+      const combinedReplies = getCombinedReplies(order);
+      if (combinedReplies.length === 0) {
+        repliesContainer.innerHTML = '<div style="color:#666;padding:6px 0;">No replies yet.</div>';
+      } else {
+        combinedReplies.forEach(r => {
+          const node = document.createElement('div');
+          node.style.background = '#f7f7f7';
+          node.style.padding = '8px';
+          node.style.borderRadius = '6px';
+          node.innerHTML = '<div style="font-size:0.85rem;color:#666;margin-bottom:6px;"><strong style="color:#b71c1c;">' + (r.author||r.role||'staff') + '</strong> • ' + (r.time ? new Date(r.time).toLocaleString() : '') + '</div>'
+                         + '<div style="white-space:pre-wrap;color:#333;">' + (r.message || '') + '</div>';
+          repliesContainer.appendChild(node);
+        });
+      }
+      // show modal
+      document.getElementById('customerOrderModal').style.display = 'flex';
+    }
+
+    function closeCustomerModal() {
+      document.getElementById('customerOrderModal').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      // existing onload tasks...
+      loadUserOrdersForCustomer();
+    });
+
+    function redirectDashboard() {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      if (!user) {
+        location.href = '../login.html';
+        return;
+      }
+      if (user.role === 'sales') {
+        location.href = '../QuotationSystem_Phase1/sales_dashboard.html';
+      } else {
+        location.href = 'customer_dashboard.html';
+      }
+    }
+    
+    function logout() {
+      sessionStorage.removeItem('user');
+      location.href = '../login.html';
+    }
+
+    // Ensure customer's orders refresh when orders are updated elsewhere (staff tab)
+    function tryRefreshCustomerOrders() {
+      // call whichever function exists that renders the customer's orders
+      if (typeof loadUserOrdersForCustomer === 'function') loadUserOrdersForCustomer();
+      else if (typeof loadOrders === 'function') loadOrders();
+    }
+    
+    // Listen for localStorage changes from other tabs/windows
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key === 'orders' || e.key === 'orders_update' || e.key === null) {
+        tryRefreshCustomerOrders();
+      }
+    });
+    
+    // Refresh when the page/tab gets focus (useful when staff updated in same origin)
+    window.addEventListener('focus', () => {
+      tryRefreshCustomerOrders();
+    });
+    
+    // Also a safe periodic refresh (lightweight) to cover edge cases
+    setInterval(() => {
+      tryRefreshCustomerOrders();
+    }, 5000); // every 5s
+  </script>
+</body>
+</html>

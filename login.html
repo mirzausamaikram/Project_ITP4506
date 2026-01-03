@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Smile and Sunshine Toys</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+      min-height: 100vh;
+    }
+    /* Layout: make the page breathe and fill available space */
+    .login-container {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: space-between;
+      width: 95%;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* Company area should take more space so content doesn't feel compressed */
+    .company-info {
+      flex: 1 1 500px;
+      color: #d32f2f;
+      animation: fadeInLeft 1s ease;
+      padding: 10px 20px;
+    }
+    .company-info h1 {
+      font-size: 2.8rem;
+      margin: 0 0 14px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.06);
+      color: #d32f2f;
+      line-height: 1.08;
+    }
+    .company-tagline {
+      font-size: 1.2rem;
+      margin-bottom: 18px;
+      color: #d32f2f;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.04);
+    }
+    .company-description {
+      background: rgba(255,255,255,0.9);
+      padding: 18px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: #6b2a2a;
+      border: 1px solid rgba(211,47,47,0.06);
+    }
+
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+
+    .highlights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
+    .highlight-item { background: #fff; padding: 8px; border-radius: 8px; border-left: 4px solid #ff9f1c; color:#5a2b2b; aspect-ratio: 2/1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-size: 0.65rem; animation: slideInUp 0.6s ease; transition: all 0.3s ease; }
+    .highlight-item strong { display: block; margin-bottom: 4px; }
+    .highlight-item:nth-child(1) strong { animation: emojiBounce 0.6s ease 4s infinite; }
+    .highlight-item:nth-child(2) strong { animation: emojiBounce 0.7s ease 4s infinite; }
+    .highlight-item:nth-child(3) strong { animation: emojiPulse 1.2s ease-in-out 4s infinite; }
+    .highlight-item:nth-child(4) strong { animation: emojiBounce 0.8s ease 4s infinite; }
+    .highlight-item:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(211, 47, 47, 0.15); }
+
+    /* Login card: make inputs full width and increase spacing */
+    .card {
+      animation: slideInRight 0.8s ease;
+      flex: 0 0 auto;
+      width: 400px;
+      max-width: 100%;
+      background: linear-gradient(135deg, #fff 0%, #f7f9f9 100%);
+      border: 2px solid #d32f2f;
+      border-top: 4px solid #d32f2f;
+      position: relative;
+      overflow: hidden;
+      padding: 22px 26px;
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #d32f2f, #ff6b6b, #d32f2f); opacity:0.95; }
+    .card h2 { color:#d32f2f; font-size:1.9rem; margin-bottom:12px; text-align:center; }
+
+    .form-group { margin-bottom: 14px; animation: slideInUp 0.7s ease; }
+    .form-group label { color:#d32f2f; font-weight:700; display:block; margin-bottom:6px; }
+    .form-group input, .form-group select { width:100%; padding:10px 12px; border:2px solid #e6e6e6; border-radius:6px; background:#fff; box-sizing:border-box; transition: all 0.3s ease; }
+    .form-group input:focus, .form-group select:focus { border-color:#d32f2f; outline:none; box-shadow:0 0 0 6px rgba(211,47,47,0.06); transform: scale(1.02); }
+
+    .btn { display:inline-block; width:100%; padding:10px 12px; background:linear-gradient(135deg,#d32f2f 0%,#b71c1c 100%); color:#fff; border:none; border-radius:6px; font-weight:700; cursor:pointer; transition: all 0.3s ease; }
+    .btn:hover { transform:translateY(-3px); box-shadow: 0 8px 16px rgba(211, 47, 47, 0.3); }
+    .btn:active { transform:translateY(-1px); }
+
+    .success { display:none; color:#2ec4b6; font-weight:700; margin-top:10px; }
+    .login-link { color:#d32f2f; text-decoration:none; font-weight:700; }
+
+    /* Snowflake animation */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 2em;
+      animation: snowfall linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes snowfall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes slideInRight { 
+      from { opacity: 0; transform: translateX(50px); } 
+      to { opacity: 1; transform: translateX(0); } 
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes emojiBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes emojiSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes emojiPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    /* Make layout stack nicely on small screens */
+    @media (max-width: 900px) {
+      .login-container { flex-direction: column; gap:24px; padding:20px; min-height:auto; }
+      .company-info { order: 1; }
+      .card { order: 2; width:100%; max-width:720px; margin: 0 auto; }
+      .highlights { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .company-info h1 { font-size:1.8rem; }
+      .card { padding:18px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling snowflakes -->
+  <script>
+    function createSnowflakes() {
+      for(let i = 0; i < 20; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(snowflake);
+      }
+    }
+    createSnowflakes();
+  </script>
+
+  <div class="login-container">
+    <!-- Company Information Section -->
+    <div class="company-info">
+      <div class="christmas-badge">🎄 Holiday Season Special 🎄</div>
+      <h1>Smile and Sunshine Toys</h1>
+      <p class="company-tagline">Spreading Joy & Wonder This Christmas! 🎅</p>
+      
+      <div class="company-description">
+        <strong>Welcome to Smile and Sunshine Toys!</strong> We're a premium toy retailer dedicated to bringing smiles to children's faces this magical Christmas season. With over a decade of experience, we offer carefully curated toys that inspire imagination, creativity, and endless fun.
+      </div>
+
+      <div class="highlights">
+        <div class="highlight-item">
+          <strong>🎁 Premium Toys</strong><br>
+          Hand-picked selection of quality toys for all ages
+        </div>
+        <div class="highlight-item">
+          <strong>🚚 Fast Delivery</strong><br>
+          Holiday express shipping available
+        </div>
+        <div class="highlight-item">
+          <strong>💯 Quality Assured</strong><br>
+          Safety tested & certified products
+        </div>
+        <div class="highlight-item">
+          <strong>❄️ Festive Specials</strong><br>
+          Limited edition Christmas collections
+        </div>
+      </div>
+
+      <p style="margin-top: 20px; font-size: 0.95rem;">
+        <strong>This Christmas, make it special!</strong> Browse our exclusive collection of toys, from classic favorites to the latest trending toys. Whether you're shopping for babies, toddlers, kids, or teens, we have something magical for everyone.
+      </p>
+    </div>
+
+    <!-- Login Form Section -->
+    <div class="card">
+      <h2>Welcome Back</h2>
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required/>
+          <div class="error"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="pwd" required/>
+          <div class="error"></div>
+        </div>
+        <button class="btn" type="submit">Login</button>
+      </form>
+      <p style="text-align:center;margin-top:15px;font-size:.9rem">
+        New user? <a href="register.html" class="login-link">Register here</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

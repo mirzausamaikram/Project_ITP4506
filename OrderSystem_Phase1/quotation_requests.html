@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Quotation Requests – Smile and Sunshine Toys</title>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #fff 0%, #f0f8f8 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            padding-top: 65px;
+        }
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5em;
+            animation: snowfall linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes snowfall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .navbar {
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            padding: 12px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            width: 100% !important;
+            margin-bottom: 0 !important;
+            overflow: visible !important;
+        }
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand {
+            color: red;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .navbar-nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-item {
+            color: red;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 6px;
+        }
+        .nav-item:hover {
+            color: #fff;
+            background: #d32f2f;
+            transform: translateY(-2px);
+        }
+        .card {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            max-width: 1100px !important;
+            margin: 30px auto !important;
+            padding: 40px !important;
+        }
+        .card h2 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+            font-size: 2rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        .card p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        thead {
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            color: white;
+        }
+        thead th {
+            padding: 16px 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            letter-spacing: 0.5px;
+        }
+        tbody td {
+            padding: 14px 14px;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        tbody tr {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+        tbody tr:hover {
+            background: #f8f8f8;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.1);
+            transform: translateY(-2px);
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+        .status-replied {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #28a745;
+        }
+        .status-processing {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #007bff;
+        }
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #b71c1c 0%, #8b0000 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(211, 47, 47, 0.3);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #666 0%, #444 100%);
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #444 0%, #222 100%);
+        }
+        .back-btn {
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.2);
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(211, 47, 47, 0.3);
+        }
+        .back-btn-arrow {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover .back-btn-arrow {
+            transform: translateX(-5px);
+        }
+        a:not(.btn):not(.back-btn) {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        a:not(.btn):not(.back-btn):hover {
+            color: #b71c1c;
+            text-decoration: underline;
+        }
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+            font-size: 0.95rem;
+        }
+        .empty-state a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #d32f2f;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .navbar-nav {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+            .card {
+                padding: 25px !important;
+            }
+            .card h2 {
+                font-size: 1.5rem;
+            }
+            table {
+                font-size: 0.8rem;
+            }
+            thead th {
+                padding: 10px;
+            }
+            tbody td {
+                padding: 8px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Falling snowflakes -->
+    <script>
+        function createSnowflakes() {
+            for(let i = 0; i < 25; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = '❄';
+                snowflake.style.left = Math.random() * window.innerWidth + 'px';
+                snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(snowflake);
+            }
+        }
+        createSnowflakes();
+    </script>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="javascript:redirectDashboard()" class="navbar-brand">🎄 Smile & Sunshine Toys</a>
+            <div class="navbar-nav">
+                <a href="browse_toys.html" class="nav-item">Browse Toys</a>
+                <a href="wishlist.html" class="nav-item">My Wish-list</a>
+                <a href="track_order.html" class="nav-item">Track Order</a>
+                <a href="account.html" class="nav-item">Update Profile</a>
+                <a href="quotation_form.html" class="nav-item">Custom Toys</a>
+                <a href="#" onclick="logout(); return false;" class="nav-item">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card">
+        <h2>📋 My Quotation Requests</h2>
+        <p>Track the status of your custom toy quotation requests below.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Template</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Quoted Price</th>
+                    <th>Est. Delivery</th>
+                    <th>Date Submitted</th>
+                </tr>
+            </thead>
+            <tbody id="requestsBody">
+            </tbody>
+        </table>
+
+        <div class="button-group">
+            <a href="quotation_form.html" class="btn">✓ Submit New Request</a>
+            <a href="customer_dashboard.html" class="back-btn"><span class="back-btn-arrow">←</span> Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="../js/shared_data.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (!user) location.href = '../../login.html';
+
+        function loadMyRequests() {
+            const quotations = window.getQuotations ? window.getQuotations() : 
+                               JSON.parse(localStorage.getItem('smile_sunshine_quotations') || '[]');
+            
+            // Filter only the current customer's quotations
+            const myQuotes = quotations.filter(q => q.customer === user.email);
+            
+            const tbody = document.getElementById('requestsBody');
+            tbody.innerHTML = '';
+
+            if (myQuotes.length === 0) {
+                const row = tbody.insertRow();
+                row.innerHTML = `<td colspan="7" class="empty-state">No quotation requests yet. <a href="quotation_form.html" style="color:#d32f2f">Submit one</a></td>`;
+                return;
+            }
+
+            myQuotes.forEach(q => {
+                const row = tbody.insertRow();
+                
+                // Status badge styling
+                let statusClass = 'status-pending';
+                if (q.status === 'Replied') statusClass = 'status-replied';
+                if (q.status === 'Processing') statusClass = 'status-processing';
+                
+                row.innerHTML = `
+                    <td>${q.id}</td>
+                    <td>${q.template || 'Custom Design'}</td>
+                    <td>${q.qty}</td>
+                    <td>
+                        <span class="status-badge ${statusClass}">
+                            ${q.status || 'Pending'}
+                        </span>
+                    </td>
+                    <td>
+                        ${q.price ? 'HK$ ' + q.price.toFixed(2) : '–'}
+                    </td>
+                    <td>
+                        ${q.estDelivery || '–'}
+                    </td>
+                    <td>
+                        ${q.date || '–'}
+                    </td>
+                `;
+            });
+        }
+
+        function redirectDashboard() {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            if (!user) {
+                location.href = '../login.html';
+                return;
+            }
+            if (user.role === 'sales') {
+                location.href = '../QuotationSystem_Phase1/sales_dashboard.html';
+            } else {
+                location.href = 'customer_dashboard.html';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('user');
+            location.href = '../login.html';
+        }
+
+        // Load requests when page loads and refresh every 3 seconds
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                loadMyRequests();
+                setInterval(loadMyRequests, 3000);
+            });
+        } else {
+            loadMyRequests();
+            setInterval(loadMyRequests, 3000);
+        }
+    </script>
+</body>
+</html>

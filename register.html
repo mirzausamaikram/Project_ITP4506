@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register – Smile and Sunshine Toys</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+      padding: 25px 20px;
+      min-height: 100vh;
+    }
+    .register-container {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      width: 95%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+    .company-info {
+      flex: 1;
+      color: #d32f2f;
+      animation: fadeInLeft 1s ease;
+    }
+    .company-info h1 {
+      font-size: 2rem;
+      margin: 0 0 8px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      color: #d32f2f;
+      line-height: 1.2;
+    }
+    .company-tagline {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: #d32f2f;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    .company-description {
+      padding: 16px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      color: #d32f2f;
+    }
+    .featured-images {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    .toy-image {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      backdrop-filter: blur(10px);
+      animation: float 3s ease-in-out infinite;
+    }
+    .toy-image:nth-child(2) { animation-delay: 0.2s; }
+    .toy-image:nth-child(3) { animation-delay: 0.4s; }
+    .toy-image:nth-child(4) { animation-delay: 0.6s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .highlight-item {
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 7px;
+      backdrop-filter: blur(10px);
+      border-left: 5px solid #ff9f1c;
+      color: #d32f2f;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .highlight-item strong {
+      color: #d32f2f;
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 2.5em;
+      animation: snowfall linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes snowfall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    .card {
+      animation: fadeIn .8s;
+      flex: 0 0 auto;
+      width: 400px;
+      max-width: 100%;
+      background: linear-gradient(135deg, #fff 0%, #f0f8f8 100%);
+      border: 2px solid #d32f2f;
+      border-top: 3px solid #d32f2f;
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #d32f2f, #ff6b6b, #d32f2f);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .card h2 {
+      color: #d32f2f;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .card h2::before {
+      content: '🎄 ';
+      margin-right: 12px;
+    }
+    .card h2::after {
+      content: ' 🎄';
+      margin-left: 12px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      color: #d32f2f;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group select {
+      padding: 9px 11px;
+      border: 2px solid #e0e0e0;
+      background: #fafafa;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #d32f2f;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.15);
+    }
+    .btn {
+      width: 100%;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shine 3s infinite;
+    }
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #b71c1c 0%, #8b0000 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(211, 47, 47, 0.4);
+    }
+    .success {
+      color: #2ec4b6;
+      font-weight: 700;
+      margin-top: 15px;
+      font-size: 1.05rem;
+    }
+    .register-link {
+      color: #d32f2f;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .register-link:hover {
+      text-decoration: underline;
+    }
+    .christmas-badge {
+      display: inline-block;
+      background: #d32f2f;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 9px;
+      margin-bottom: 12px;
+    }
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      font-weight: normal;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .radio-label input[type="radio"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: #d32f2f;
+    }
+    .radio-label span {
+      user-select: none;
+    }
+    .radio-label input[type="radio"]:focus {
+      outline: 2px solid #d32f2f;
+      outline-offset: 2px;
+    }
+    .error {
+      color: #d32f2f;
+      font-size: 0.8rem;
+      margin-top: 3px;
+      min-height: 20px;
+    }
+    p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .register-container {
+        gap: 20px;
+        padding: 15px;
+      }
+      .card {
+        width: 100%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling snowflakes -->
+  <script>
+    function createSnowflakes() {
+      for(let i = 0; i < 20; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(snowflake);
+      }
+    }
+    createSnowflakes();
+  </script>
+
+  <div class="register-container">
+    <!-- Registration Form Section (Left) -->
+    <div class="card">
+      <h2>Create Account</h2>
+      <form id="regForm" novalidate>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="name" required/>
+          <div class="error"></div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required/>
+          <div class="error"></div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" required/>
+          <div class="error"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="pwd" required/>
+          <div class="error"></div>
+        </div>
+        <div class="form-group">
+          <label>Account Type</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="role" id="customer" value="customer" checked/>
+              <span>🛍️ Customer</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="role" id="sales" value="sales"/>
+              <span>👔 Sales Personnel</span>
+            </label>
+          </div>
+          <div class="error"></div>
+        </div>
+        <div class="form-group" id="staff-number-group" style="display:none;">
+          <label>Staff Number</label>
+          <input type="text" id="staffNumber" required/>
+          <div class="error"></div>
+        </div>
+        <div class="form-group" id="terms-group">
+          <label>
+            <input type="checkbox" id="terms"/> I agree to the terms and conditions
+          </label>
+          <div class="error"></div>
+        </div>
+        <button class="btn" type="submit">Register</button>
+        <div class="success">✅ Registration successful – redirecting…</div>
+      </form>
+      <p style="text-align:center;margin-top:15px;font-size:.9rem">
+        Already have an account? <a href="login.html" class="register-link">Login here</a>
+      </p>
+    </div>
+
+    <!-- Company Information Section (Right) -->
+    <div class="company-info">
+      <div class="christmas-badge">🎄 Join Our Christmas Family 🎄</div>
+      <h1>Start Your Journey</h1>
+      <p class="company-tagline">Become Part of the Smile & Sunshine Community! ✨</p>
+      
+      <div class="company-description">
+        <strong>Why Join Us?</strong> Create your account today and unlock exclusive Christmas deals, early access to new toys, and personalized recommendations just for you!
+      </div>
+
+      <div class="highlights">
+        <div class="highlight-item">
+          <strong>🎉 Exclusive Deals</strong><br>
+          Members-only Christmas specials
+        </div>
+        <div class="highlight-item">
+          <strong>🎯 Early Access</strong><br>
+          First to shop new releases
+        </div>
+        <div class="highlight-item">
+          <strong>💝 Loyalty Rewards</strong><br>
+          Earn points on every purchase
+        </div>
+        <div class="highlight-item">
+          <strong>📱 Easy Tracking</strong><br>
+          Monitor orders in real-time
+        </div>
+      </div>
+
+      <p style="margin-top: 20px; font-size: 0.95rem; color: #d32f2f;">
+        <strong>It takes just 30 seconds!</strong> Fill in your details below and start enjoying premium toy shopping with Smile and Sunshine Toys. Your Christmas wishlist awaits!
+      </p>
+
+      <div class="featured-images">
+        <div class="toy-image">🎊</div>
+        <div class="toy-image">🎉</div>
+        <div class="toy-image">🌟</div>
+        <div class="toy-image">🎈</div>
+      </div>
+    </div>
+
+  <script src="js/register.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
